@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div id="status">
+    <br>
+    <div class="alert alert-primary" id="alert" role="alert"></div>
+  </div>
+  <div>
+    <h2>Pay Your Fees</h2>
+    <button type="button" class="btn btn-primary" id="custom-button">Pay School fees</button>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="https://checkout.stripe.com/checkout.js"></script>
+<form action="" method="post">
+  {{ form.hidden_tag() }}
+  <script>
+    var handler = StripeCheckout.configure({
+    key: "{{ key }}",
+      // Search for a cash png image and place link here
+    image: "https://stripe.com/img/documentation/checkout/marketplace.png",
+    locale: "auto",
+    token: function(token) {
+      fetch("/charge", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", },
+        body: JSON.stringify({
+          token: token.id,
+          // Set the amount here to be the flask form amount
+          amount: amount,
+          description: "A Fee Payment",
+        }),
+      })
+      .then(function(response) {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Something went wrong with the payment.');
+        }
+      })
+      .then(function(jsonResponse) {
+        // update the alert message
+        document.getElementById("alert").innerText = "Fee payment successful!"
+        // show the bootstrap alert
+        document.getElementById("status").style.display = "inline";
+      })
+      .catch(function(err) {
+        // update the alert message
+        document.getElementById("alert").innerText = "Something went wrong."
+        // show the bootstrap alert
+        document.getElementById("status").style.display = "inline";
+      });
+    }
+  });
+  document.getElementById("custom-button").addEventListener("click", function(e) {
+    // hide the bootstrap alert
+    document.getElementById("status").style.display = "none";
+    handler.open({
+      name: "UDS Fee Payment",
+      description: "School fees payment",
+      // Set the amount here to be the flask form amount
+      amount: 500
+    });
+    e.preventDefault();
+  });
+
+  window.addEventListener("popstate", function() {
+    handler.close();
+  });
+  </script>
+</form>
+{% endblock %}
