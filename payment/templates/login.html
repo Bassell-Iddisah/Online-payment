@@ -1,3 +1,23 @@
 {% extends "base.html" %}
-{% block body %}
-{% endblock%}
+{% block content %}
+<form action="" method="post" class="" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <fieldset class="jumbotron mr-auto ml-auto w-50" style="border-top:5px dodgerblue solid;">
+
+<!--        <legend class="text-center border-bottom border-dark">{{ legend }}</legend>-->
+
+        <div class="form-group">
+            {{ form.Email(class='form-control', placeholder='Email') }}
+        </div>
+
+
+        <div class="form-group">
+                {{ form.Password(class='form-control', placeholder='Password') }}
+        </div>
+
+        <div class="form-group">
+            {{ form.submit(class='btn btn-success') }}
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

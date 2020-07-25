@@ -1,4 +1,37 @@
 {% extends "base.html" %}
-{% block body %}
+{% block content %}
+<form action="" method="post" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <fieldset class="jumbotron mr-auto ml-auto w-50" style="border-top:5px dodgerblue solid;">
 
+        <div class="form-group w-50 float-left">
+            {{ form.Firstname(class='form-control', placeholder='First Name') }}
+        </div>
+
+        <div class="form-group w-50 float-right">
+            {{ form.Lastname(class='form-control', placeholder='Last Name') }}
+        </div>
+
+        <div class="form-group">
+                {{ form.Username(class='form-control', placeholder='User Name') }}
+        </div>
+
+        <div class="form-group">
+            {{ form.Email(class='form-control', placeholder='Email') }}
+        </div>
+
+        <div class="form-group w-50 float-left">
+                {{ form.Password(class='form-control', placeholder='Password') }}
+        </div>
+
+        <div class="form-group w-50 float-right">
+                {{ form.Confirmpassword(class='form-control', placeholder='Confirm Password') }}
+        </div>
+
+        <div class="form-group">
+            {{ form.submit(class='btn btn-outline-info', type='submit') }}
+        </div>
+
+    </fieldset>
+</form>
 {% endblock %}
