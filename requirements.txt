@@ -30,7 +30,7 @@ mtnmomo==3.0.1
 packaging==20.3
 passlib==1.7.2
 phonenumbers==8.12.6
-Pillow==7.1.1
+Pillow==8.2.0
 pycparser==2.20
 pyparsing==2.4.7
 python-dateutil==2.8.1
